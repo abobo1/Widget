@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomWidgetKeywords.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">my custom widget</a> &gt; <a href="index.source.html" class="el_package">keywords</a> &gt; <span class="el_source">CustomWidgetKeywords.java</span></div><h1>CustomWidgetKeywords.java</h1><pre class="source lang-java linenums">package keywords;
+
+import org.robotframework.javalib.annotation.RobotKeyword;
+import org.robotframework.javalib.annotation.RobotKeywords;
+import org.robotframework.javalib.annotation.ArgumentNames;
+import org.robotframework.swing.context.Context;
+
+import org.netbeans.jemmy.operators.JComponentOperator;
+import org.netbeans.jemmy.operators.ContainerOperator;
+import org.netbeans.jemmy.ComponentChooser;
+
+import java.awt.Component;
+import java.awt.Shape;
+import java.awt.Rectangle;
+import edu.jsu.mcis.CustomWidget;
+
+@RobotKeywords
+<span class="nc" id="L18">public class CustomWidgetKeywords</span>
+ {
+    @RobotKeyword(&quot;Clicks on the custom widget at the given coordinates.&quot;)
+    @ArgumentNames({&quot;x&quot;, &quot;y&quot;})
+    
+    
+    public void clickCustomWidget(int x, int y) {
+<span class="nc" id="L25">        ContainerOperator context = (ContainerOperator) Context.getContext();</span>
+<span class="nc" id="L26">        ComponentChooser chooser = new CustomWidgetChooser();</span>
+<span class="nc" id="L27">        JComponentOperator operator = new JComponentOperator(context, chooser);</span>
+<span class="nc" id="L28">        operator.clickMouse(x, y, 1);</span>
+        
+<span class="nc" id="L30">    }</span>
+    
+    @RobotKeyword(&quot;Clicks inside the shape of the custom widget.&quot;)
+    @ArgumentNames({})
+   
+    public void clickHexagon() 
+    {
+<span class="nc" id="L37">        ContainerOperator context = (ContainerOperator) Context.getContext();</span>
+<span class="nc" id="L38">        ComponentChooser chooser = new CustomWidgetChooser();</span>
+<span class="nc" id="L39">        JComponentOperator operator = new JComponentOperator(context, chooser);</span>
+<span class="nc" id="L40">        CustomWidget w = (CustomWidget)operator.getSource();</span>
+<span class="nc" id="L41">        Rectangle bounds = w.getShapes()[0].getBounds();</span>
+<span class="nc" id="L42">        operator.clickMouse(bounds.x + bounds.width/2, bounds.y + bounds.height/2, 1);</span>
+<span class="nc" id="L43">    }</span>
+	public void clickOctagon() 
+    {
+<span class="nc" id="L46">        ContainerOperator context = (ContainerOperator) Context.getContext();</span>
+<span class="nc" id="L47">        ComponentChooser chooser = new CustomWidgetChooser();</span>
+<span class="nc" id="L48">        JComponentOperator operator = new JComponentOperator(context, chooser);</span>
+<span class="nc" id="L49">        CustomWidget w = (CustomWidget)operator.getSource();</span>
+<span class="nc" id="L50">        Rectangle bounds = w.getShapes()[1].getBounds();</span>
+<span class="nc" id="L51">        operator.clickMouse(bounds.x + bounds.width/2, bounds.y + bounds.height/2, 1);</span>
+<span class="nc" id="L52">    }</span>
+    
+    @RobotKeyword(&quot;Clicks outside the shape of the custom widget.\n&quot;)
+    @ArgumentNames({})
+    public void clickCustomWidgetOutside() 
+    {
+<span class="nc" id="L58">        ContainerOperator context = (ContainerOperator) Context.getContext();</span>
+<span class="nc" id="L59">        ComponentChooser chooser = new CustomWidgetChooser();</span>
+<span class="nc" id="L60">        JComponentOperator operator = new JComponentOperator(context, chooser);</span>
+<span class="nc" id="L61">        CustomWidget w = (CustomWidget)operator.getSource();</span>
+<span class="nc" id="L62">        Rectangle bounds = w.getShapes()[0].getBounds();</span>
+<span class="nc" id="L63">        operator.clickMouse(bounds.x - 10, bounds.y - 10, 1);</span>
+<span class="nc" id="L64">    }</span>
+        
+    class CustomWidgetChooser implements ComponentChooser 
+    {
+<span class="nc" id="L68">        public CustomWidgetChooser() {}</span>
+        public boolean checkComponent(Component comp) 
+        {
+<span class="nc" id="L71">            return (comp instanceof CustomWidget);</span>
+        }
+        public String getDescription()
+         {
+<span class="nc" id="L75">            return &quot;Any Widget&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
